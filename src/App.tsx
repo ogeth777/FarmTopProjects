@@ -341,7 +341,7 @@ const App = () => {
             <div className="flex items-center gap-2 px-4 py-2 bg-opinion-orange/10 rounded-full border border-opinion-orange/20 shadow-[0_0_20px_rgba(255,95,31,0.3)] animate-pulse">
               <Activity className="w-4 h-4 text-opinion-orange" />
               <span className="text-sm font-black text-opinion-orange tracking-widest uppercase">
-                Potential: $5,000 - $10,000 💎
+                Potential Profit: $5,000 - $10,000+ 💎
               </span>
             </div>
             <div className="flex items-center gap-3">
