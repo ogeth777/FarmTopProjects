@@ -270,18 +270,18 @@ const TierList = () => {
           </div>
 
           {/* Projects Row */}
-          <div className="flex flex-wrap items-center gap-3 md:gap-4 p-2 overflow-x-auto no-scrollbar">
+          <div className="flex flex-wrap items-center gap-x-6 gap-y-6 p-2 w-full">
             {projects.map(project => (
               <a 
                 key={project.id} 
                 href={project.url} 
                 target="_blank" 
                 rel="noopener noreferrer"
-                className="group relative w-12 h-12 md:w-16 md:h-16 flex-shrink-0 bg-[#1A1A1A] rounded-full flex items-center justify-center border-2 border-transparent hover:border-opinion-orange transition-all duration-300 hover:scale-110"
+                className="group relative w-16 h-16 md:w-20 md:h-20 flex-shrink-0 bg-[#1A1A1A] rounded-full flex items-center justify-center border-2 border-transparent hover:border-opinion-orange transition-all duration-300 hover:scale-110"
               >
                 {/* Investment Badge */}
                 {project.investment && (
-                  <div className="absolute -top-3 left-1/2 -translate-x-1/2 whitespace-nowrap px-1.5 py-0.5 bg-gray-900/90 backdrop-blur-sm border border-white/10 rounded text-[9px] font-bold text-green-400 shadow-xl z-20 pointer-events-none">
+                  <div className="absolute -top-4 left-1/2 -translate-x-1/2 whitespace-nowrap px-2 py-0.5 bg-gray-900/95 backdrop-blur-sm border border-white/20 rounded-md text-[11px] font-black text-green-400 shadow-xl z-20 pointer-events-none tracking-wide">
                     {project.investment.split('(')[0].trim()}
                   </div>
                 )}
@@ -289,14 +289,14 @@ const TierList = () => {
                 <img 
                   src={project.logo} 
                   alt={project.name} 
-                  className="w-8 h-8 md:w-10 md:h-10 object-contain rounded-full"
+                  className="w-10 h-10 md:w-12 md:h-12 object-contain rounded-full"
                   onError={(e) => {
                     (e.target as HTMLImageElement).src = `https://ui-avatars.com/api/?name=${project.name}&background=333&color=fff`;
                   }}
                 />
                 
                 {/* Tooltip */}
-                <div className="absolute -bottom-8 left-1/2 -translate-x-1/2 w-max px-2 py-1 bg-gray-800 text-white text-[10px] rounded opacity-0 group-hover:opacity-100 group-hover:-bottom-9 transition-all duration-300 pointer-events-none z-30 font-bold border border-white/10 shadow-xl">
+                <div className="absolute -bottom-10 left-1/2 -translate-x-1/2 w-max px-3 py-1.5 bg-gray-800 text-white text-xs rounded-lg opacity-0 group-hover:opacity-100 group-hover:-bottom-11 transition-all duration-300 pointer-events-none z-30 font-bold border border-white/10 shadow-2xl">
                   {project.name}
                 </div>
               </a>
