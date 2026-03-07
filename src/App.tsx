@@ -29,7 +29,7 @@ interface Project {
   name: string;
   url: string;
   twitter?: string;
-  tier: 'S' | 'A' | 'B';
+  tier: 'S' | 'A' | 'B' | 'C';
   description: string;
   investment?: string;
   otcPrice?: string;
@@ -77,7 +77,7 @@ const PROJECTS: Project[] = [
     name: 'Ostium',
     url: 'https://ostium.app/trade?ref=WZIGP',
     twitter: 'https://x.com/OstiumLabs',
-    tier: 'S',
+    tier: 'A',
     description: 'RWA Perpetual DEX on Arbitrum. Trade gold, oil, FX, and stocks with up to 200x leverage. Top-tier project in its niche.',
     investment: '$27.8M (Jump Crypto, General Catalyst, Coinbase Ventures)',
     otcPrice: '~$0.003 / point',
@@ -89,23 +89,12 @@ const PROJECTS: Project[] = [
     name: 'Reya Network',
     url: 'https://app.reya.xyz/trade?referredBy=kh4deiqw',
     twitter: 'https://x.com/reya_xyz',
-    tier: 'S',
+    tier: 'A',
     description: 'High-performance trading L2. Institutional-grade liquidity and the fastest order execution on the market.',
     investment: '$19M (Coinbase Ventures, Amber Group, Framework)',
     otcPrice: '$0.032 (Whales Market)',
     tags: ['L2', 'Ethereum', 'Amber Group'],
     logo: 'https://app.reya.xyz/favicon.ico'
-  },
-  {
-    id: 'based',
-    name: 'Based.one',
-    url: 'https://app.based.one/r/OGETH',
-    twitter: 'https://x.com/BasedOneX',
-    tier: 'A',
-    description: 'Next-gen trading platform on Base. Early access with social trading mechanics.',
-    investment: '$15.2M (Pantera Capital, Coinbase Ventures, Wintermute)',
-    tags: ['Base', 'Early Access', 'Social'],
-    logo: 'https://app.based.one/favicon.ico'
   },
   {
     id: 'extended',
@@ -130,11 +119,22 @@ const PROJECTS: Project[] = [
     logo: '/logos/hibachi.jpg'
   },
   {
+    id: 'based',
+    name: 'Based.one',
+    url: 'https://app.based.one/r/OGETH',
+    twitter: 'https://x.com/BasedOneX',
+    tier: 'B',
+    description: 'Next-gen trading platform on Base. Early access with social trading mechanics.',
+    investment: '$15.2M (Pantera Capital, Coinbase Ventures, Wintermute)',
+    tags: ['Base', 'Early Access', 'Social'],
+    logo: 'https://app.based.one/favicon.ico'
+  },
+  {
     id: 'o1',
     name: 'O1 Exchange',
     url: 'https://o1.exchange/@ogeth',
     twitter: 'https://x.com/o1_exchange',
-    tier: 'A',
+    tier: 'B',
     description: 'StarkEx-powered DEX. CEX-like speed with full blockchain security and transparency.',
     investment: '$4.2M (Coinbase Ventures, Alliance DAO)',
     tags: ['StarkEx', 'Amber Group', 'ZK-Proofs'],
@@ -145,7 +145,7 @@ const PROJECTS: Project[] = [
     name: 'Ethereal',
     url: 'https://app.ethereal.trade/?ref=PAT4YX3841A3',
     twitter: 'https://x.com/etherealdex',
-    tier: 'A',
+    tier: 'C',
     description: 'Ethena-based DEX. Deep USDe integration for seamless trading and yield farming.',
     investment: 'Backed by Ethena Labs (USDe Ecosystem)',
     otcPrice: 'TBA',
@@ -157,7 +157,7 @@ const PROJECTS: Project[] = [
     name: 'Pacifica',
     url: 'https://app.pacifica.fi?referral=pacifica2026',
     twitter: 'https://x.com/pacifica_fi',
-    tier: 'A',
+    tier: 'C',
     description: 'Solana hybrid DEX. CEX speed with DeFi transparency. Built by a team with FTX-level expertise.',
     investment: 'Strategic Backers (Constance Wang)',
     tags: ['Solana', 'AI Tools', 'Hybrid'],
@@ -236,163 +236,62 @@ const FallingAirdrop = () => {
   );
 };
 
-const Card = ({ project, index }: { project: Project; index: number }) => {
+const TIER_STYLES = {
+  S: 'bg-red-500/80 text-red-100 border-red-400/50',
+  A: 'bg-orange-500/80 text-orange-100 border-orange-400/50',
+  B: 'bg-blue-500/80 text-blue-100 border-blue-400/50',
+  C: 'bg-yellow-500/80 text-yellow-100 border-yellow-400/50',
+};
+
+const TierList = () => {
+  const tiers = ['S', 'A', 'B', 'C'];
+  const projectsByTier = tiers.map(tier => ({
+    tier,
+    projects: PROJECTS.filter(p => p.tier === tier)
+  }));
+
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 30 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: "-50px" }}
-      transition={{ duration: 0.6, delay: index * 0.05, ease: [0.215, 0.61, 0.355, 1] }}
-      className={cn(
-        "group relative h-full flex flex-col bg-card-bg/80 backdrop-blur-md border border-white/[0.03] rounded-[2rem] p-8 hover:border-opinion-orange/40 transition-all duration-700 orange-border-glow overflow-hidden",
-        index < 3 && "border-opinion-orange/20 bg-opinion-orange/[0.02]"
-      )}
-    >
-      <div className={cn(
-        "absolute top-0 right-0 w-32 h-32 blur-3xl -z-10 transition-all duration-700",
-        index < 3 ? "bg-opinion-orange/15" : "bg-opinion-orange/5 group-hover:bg-opinion-orange/10"
-      )} />
-      
-      {index < 3 && (
-        <div className="absolute top-6 right-6 z-20">
-          <div className="flex items-center gap-2 px-3 py-1 rounded-full bg-opinion-orange text-white text-[10px] font-black uppercase tracking-widest shadow-lg shadow-opinion-orange/20">
-            <Trophy className="w-3 h-3" />
-            TOP {index + 1}
-          </div>
-        </div>
-      )}
-      
-      <div className="flex items-start justify-between mb-8 gap-4 min-h-[80px]">
-        <div className="flex items-start gap-5 min-w-0 flex-1">
-          <div className={cn(
-            "w-20 h-20 rounded-2xl bg-white/[0.03] flex items-center justify-center overflow-hidden border border-white/[0.05] transition-all duration-700 shadow-2xl p-2 shrink-0",
-            index < 3 ? "border-opinion-orange/40" : "group-hover:border-opinion-orange/40"
-          )}>
-            {project.logo ? (
-              <img 
-                src={project.logo} 
-                alt={project.name} 
-                className="w-full h-full object-contain group-hover:scale-110 transition-transform duration-700 ease-out"
-                onError={(e) => {
-                  (e.target as HTMLImageElement).src = `https://ui-avatars.com/api/?name=${project.name}&background=FF5F1F&color=fff`;
-                }}
-              />
-            ) : (
-              <Zap className="w-10 h-10 text-opinion-orange animate-pulse" />
-            )}
-          </div>
-          <div className="space-y-2 min-w-0">
-            <div className="flex flex-wrap items-center gap-x-3 gap-y-1">
-              <h3 className="text-2xl font-black group-hover:text-opinion-orange transition-colors duration-500 leading-none py-1">
-                {project.name}
-              </h3>
-              <div className="flex items-center gap-2 shrink-0">
-                {project.twitter && (
-                  <a 
-                    href={project.twitter} 
-                    target="_blank" 
-                    rel="noopener noreferrer"
-                    className="p-1.5 rounded-lg bg-white/[0.03] hover:bg-opinion-orange/20 text-white/20 hover:text-opinion-orange transition-all duration-300 border border-white/[0.05]"
-                  >
-                    <Twitter className="w-3.5 h-3.5" />
-                  </a>
-                )}
-                {project.tier === 'S' && (
-                  <div className="relative">
-                    <Trophy className="w-5 h-5 text-yellow-500 drop-shadow-[0_0_8px_rgba(234,179,8,0.5)]" />
-                    <motion.div 
-                      animate={{ scale: [1, 1.2, 1] }}
-                      transition={{ repeat: Infinity, duration: 2 }}
-                      className="absolute inset-0 bg-yellow-500/20 blur-md rounded-full -z-10" 
-                    />
-                  </div>
-                )}
-              </div>
-            </div>
-            <div className="flex flex-wrap gap-2">
-              <span className={cn(
-                "text-[10px] px-3 py-1 rounded-lg font-black uppercase tracking-[0.15em] border transition-all duration-500",
-                project.tier === 'S' ? "bg-yellow-500/10 text-yellow-500 border-yellow-500/30 group-hover:bg-yellow-500/20" :
-                project.tier === 'A' ? "bg-opinion-orange/10 text-opinion-orange border-opinion-orange/30 group-hover:bg-opinion-orange/20" :
-                "bg-white/5 text-white/40 border-white/10 group-hover:bg-white/10"
-              )}>
-                Tier {project.tier}
-              </span>
-              {project.tags.slice(0, 2).map(tag => (
-                <span key={tag} className="text-[10px] px-3 py-1 rounded-lg bg-white/[0.02] text-white/30 font-bold uppercase tracking-[0.1em] border border-white/[0.05] group-hover:text-white/50 transition-colors duration-500">
-                  {tag}
-                </span>
-              ))}
-            </div>
-          </div>
-        </div>
-        <div className="w-12 h-12 flex items-center justify-center shrink-0">
-          {index >= 3 && (
-            <a 
-              href={project.url} 
-              target="_blank" 
-              rel="noopener noreferrer"
-              className="p-3 rounded-2xl bg-white/[0.03] hover:bg-opinion-orange text-white/20 hover:text-white transition-all duration-500 border border-white/[0.05] hover:border-opinion-orange/50 hover:shadow-[0_0_20px_rgba(255,95,31,0.3)] group/btn"
-            >
-              <ExternalLink className="w-5 h-5 group-hover/btn:scale-110 transition-transform" />
-            </a>
-          )}
-        </div>
-      </div>
-
-      <div className="flex-1">
-        <p className="text-[14px] text-white/50 mb-8 leading-[1.6] font-medium line-clamp-3 group-hover:text-white/70 transition-colors duration-500 min-h-[66px]">
-          {project.description}
-        </p>
-      </div>
-
-      <div className="space-y-4 pt-6 border-t border-white/[0.03] min-h-[120px]">
-        {project.investment && (
-          <div className="flex items-start gap-3.5 text-[12px] text-white/40">
-            <div className="p-2 rounded-lg bg-opinion-orange/5 text-opinion-orange group-hover:bg-opinion-orange/10 transition-colors duration-500">
-              <DollarSign className="w-4 h-4" />
-            </div>
-            <div className="space-y-0.5">
-              <span className="block font-black text-white/20 uppercase tracking-[0.2em] text-[9px]">CryptoRank Stats</span>
-              <span className="leading-snug block font-bold text-white/60 group-hover:text-white/80 transition-colors duration-500 line-clamp-2">{project.investment}</span>
-            </div>
-          </div>
-        )}
-        {project.otcPrice && (
-          <div className="flex items-start gap-3.5 text-[12px] text-white/40">
-            <div className="p-2 rounded-lg bg-opinion-orange/5 text-opinion-orange group-hover:bg-opinion-orange/10 transition-colors duration-500">
-              <Activity className="w-4 h-4" />
-            </div>
-            <div className="space-y-0.5">
-              <span className="block font-black text-white/20 uppercase tracking-[0.2em] text-[9px]">Market Price (OTC)</span>
-              <span className="text-opinion-orange font-mono font-black text-sm tracking-tight">{project.otcPrice}</span>
-            </div>
-          </div>
-        )}
-      </div>
-
-      <div className="mt-8">
-        <a
-          href={project.url}
-          target="_blank"
-          rel="noopener noreferrer"
-          className={cn(
-            "relative group/farm overflow-hidden block w-full py-5 px-6 rounded-2xl text-center text-[11px] font-black uppercase tracking-[0.25em] transition-all duration-500 active:scale-[0.98]",
-            index < 3 
-              ? "bg-white text-opinion-orange hover:shadow-[0_0_40px_rgba(255,255,255,0.2)]" 
-              : "bg-opinion-orange text-white hover:shadow-[0_0_40px_rgba(255,95,31,0.5)]"
-          )}
+    <div className="space-y-4">
+      {projectsByTier.map(({ tier, projects }) => (
+        <motion.div 
+          key={tier}
+          initial={{ opacity: 0, x: -50 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.5, delay: tiers.indexOf(tier) * 0.1 }}
+          className="flex items-center gap-4 md:gap-6 bg-card-bg/50 backdrop-blur-md border border-white/[0.05] p-4 rounded-2xl"
         >
           <div className={cn(
-            "absolute inset-0 translate-y-full group-hover/farm:translate-y-0 transition-transform duration-500",
-            index < 3 ? "bg-opinion-orange/10" : "bg-white/20"
-          )} />
-          <span className="relative z-10 flex items-center justify-center gap-3">
-            Join the Farm <Rocket className="w-4 h-4 group-hover/farm:translate-x-1 group-hover/farm:-translate-y-1 transition-transform duration-500" />
-          </span>
-        </a>
-      </div>
-    </motion.div>
+            'w-16 h-16 md:w-20 md:h-20 flex-shrink-0 flex items-center justify-center rounded-xl md:rounded-2xl border text-3xl md:text-4xl font-black',
+            TIER_STYLES[tier as keyof typeof TIER_STYLES]
+          )}>
+            {tier}
+          </div>
+          <div className="flex flex-wrap gap-3 md:gap-4">
+            {projects.map(project => (
+              <a 
+                key={project.id} 
+                href={project.url} 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="group relative w-16 h-16 md:w-20 md:h-20 bg-white/[0.03] rounded-full flex items-center justify-center border-2 border-transparent hover:border-opinion-orange transition-all duration-300 shadow-lg"
+              >
+                <img 
+                  src={project.logo} 
+                  alt={project.name} 
+                  className="w-10 h-10 md:w-12 md:h-12 object-contain rounded-full group-hover:scale-110 transition-transform duration-300"
+                  onError={(e) => {
+                    (e.target as HTMLImageElement).src = `https://ui-avatars.com/api/?name=${project.name}&background=222&color=fff`;
+                  }}
+                />
+                <div className="absolute -bottom-8 left-1/2 -translate-x-1/2 w-max px-3 py-1 bg-gray-800 text-white text-xs rounded-md opacity-0 group-hover:opacity-100 group-hover:-bottom-10 transition-all duration-300 pointer-events-none">
+                  {project.name}
+                </div>
+              </a>
+            ))}
+          </div>
+        </motion.div>
+      ))}
+    </div>
   );
 };
 
@@ -453,10 +352,8 @@ const App = () => {
           </div>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
-          {PROJECTS.map((project, index) => (
-            <Card key={project.id} project={project} index={index} />
-          ))}
+        <div className="mt-12">
+          <TierList />
         </div>
 
         <footer className="mt-32 pb-16 border-t border-white/[0.05] pt-16">
