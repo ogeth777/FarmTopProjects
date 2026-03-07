@@ -237,10 +237,10 @@ const FallingAirdrop = () => {
 };
 
 const TIER_STYLES = {
-  S: 'bg-red-500/80 text-red-100 border-red-400/50',
-  A: 'bg-orange-500/80 text-orange-100 border-orange-400/50',
-  B: 'bg-blue-500/80 text-blue-100 border-blue-400/50',
-  C: 'bg-yellow-500/80 text-yellow-100 border-yellow-400/50',
+  S: 'bg-[#FF5F5F] text-white',
+  A: 'bg-[#FF9F43] text-white',
+  B: 'bg-[#54A0FF] text-white',
+  C: 'bg-[#FDCB6E] text-white',
 };
 
 const TierList = () => {
@@ -255,44 +255,48 @@ const TierList = () => {
       {projectsByTier.map(({ tier, projects }) => (
         <motion.div 
           key={tier}
-          initial={{ opacity: 0, x: -50 }}
-          animate={{ opacity: 1, x: 0 }}
-          transition={{ duration: 0.5, delay: tiers.indexOf(tier) * 0.1 }}
-          className="flex flex-col md:flex-row items-stretch md:items-center gap-4 md:gap-6 bg-card-bg/50 backdrop-blur-md border border-white/[0.05] p-4 rounded-2xl"
+          initial={{ opacity: 0, x: -20 }}
+          whileInView={{ opacity: 1, x: 0 }}
+          viewport={{ once: true, margin: "-50px" }}
+          transition={{ duration: 0.4 }}
+          className="flex items-center gap-4 bg-[#0A0A0A] p-3 rounded-2xl border border-white/[0.05]"
         >
+          {/* Tier Letter */}
           <div className={cn(
-            'h-20 md:w-24 md:h-24 flex-shrink-0 flex items-center justify-center rounded-xl md:rounded-2xl border text-4xl md:text-5xl font-black w-full md:w-auto',
+            'w-16 h-16 md:w-20 md:h-20 flex-shrink-0 flex items-center justify-center rounded-xl text-3xl md:text-4xl font-black shadow-lg',
             TIER_STYLES[tier as keyof typeof TIER_STYLES]
           )}>
             {tier}
           </div>
-          <div className="flex flex-wrap gap-x-4 gap-y-8 p-2">
+
+          {/* Projects Row */}
+          <div className="flex flex-wrap items-center gap-3 md:gap-4 p-2 overflow-x-auto no-scrollbar">
             {projects.map(project => (
               <a 
                 key={project.id} 
                 href={project.url} 
                 target="_blank" 
                 rel="noopener noreferrer"
-                className="group relative w-20 h-20 md:w-24 md:h-24 bg-white/[0.03] rounded-2xl flex items-center justify-center border-2 border-transparent hover:border-opinion-orange transition-all duration-300 shadow-lg"
+                className="group relative w-12 h-12 md:w-16 md:h-16 flex-shrink-0 bg-[#1A1A1A] rounded-full flex items-center justify-center border-2 border-transparent hover:border-opinion-orange transition-all duration-300 hover:scale-110"
               >
                 {/* Investment Badge */}
                 {project.investment && (
-                  <div className="absolute -top-3 left-1/2 -translate-x-1/2 whitespace-nowrap px-2 py-0.5 bg-gray-900 border border-white/10 rounded-md text-[10px] font-bold text-green-400 shadow-xl z-20">
+                  <div className="absolute -top-3 left-1/2 -translate-x-1/2 whitespace-nowrap px-1.5 py-0.5 bg-gray-900/90 backdrop-blur-sm border border-white/10 rounded text-[9px] font-bold text-green-400 shadow-xl z-20 pointer-events-none">
                     {project.investment.split('(')[0].trim()}
                   </div>
                 )}
-                
+
                 <img 
                   src={project.logo} 
                   alt={project.name} 
-                  className="w-12 h-12 md:w-14 md:h-14 object-contain rounded-xl group-hover:scale-110 transition-transform duration-300"
+                  className="w-8 h-8 md:w-10 md:h-10 object-contain rounded-full"
                   onError={(e) => {
-                    (e.target as HTMLImageElement).src = `https://ui-avatars.com/api/?name=${project.name}&background=222&color=fff`;
+                    (e.target as HTMLImageElement).src = `https://ui-avatars.com/api/?name=${project.name}&background=333&color=fff`;
                   }}
                 />
                 
                 {/* Tooltip */}
-                <div className="absolute -bottom-8 left-1/2 -translate-x-1/2 w-max px-3 py-1 bg-gray-800 text-white text-xs rounded-md opacity-0 group-hover:opacity-100 group-hover:-bottom-10 transition-all duration-300 pointer-events-none z-30 font-bold tracking-wide border border-white/10 shadow-2xl">
+                <div className="absolute -bottom-8 left-1/2 -translate-x-1/2 w-max px-2 py-1 bg-gray-800 text-white text-[10px] rounded opacity-0 group-hover:opacity-100 group-hover:-bottom-9 transition-all duration-300 pointer-events-none z-30 font-bold border border-white/10 shadow-xl">
                   {project.name}
                 </div>
               </a>
