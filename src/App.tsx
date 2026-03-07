@@ -337,21 +337,14 @@ const App = () => {
             </p>
           </motion.div>
 
-          <div className="flex flex-col items-center md:items-end gap-4">
-            <motion.div
-              initial={{ opacity: 0, y: -20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8 }}
-              className="relative"
-            >
-              <div className="absolute inset-0 bg-opinion-orange/30 blur-2xl rounded-full -z-10" />
-              <div className="flex items-center gap-4 px-6 py-2.5 rounded-2xl bg-opinion-orange/10 border border-opinion-orange/40 text-opinion-orange font-black text-[10px] sm:text-xs tracking-[0.3em] orange-glow transition-all duration-700 hover:scale-105 hover:bg-opinion-orange/20 cursor-default uppercase">
-                <TrendingUp className="w-4 h-4" />
+          <div className="flex flex-col items-end gap-3">
+            <div className="flex items-center gap-2 px-4 py-2 bg-opinion-orange/10 rounded-full border border-opinion-orange/20 shadow-[0_0_20px_rgba(255,95,31,0.3)] animate-pulse">
+              <Activity className="w-4 h-4 text-opinion-orange" />
+              <span className="text-sm font-black text-opinion-orange tracking-widest uppercase">
                 Airdrop +10,000$ 💎
-              </div>
-            </motion.div>
-            
-            <div className="flex gap-4">
+              </span>
+            </div>
+            <div className="flex items-center gap-3">
               {[
                 { label: 'Projects', value: PROJECTS.length, icon: Layers },
                 { label: 'Elite S', value: PROJECTS.filter(p => p.tier === 'S').length, icon: Trophy },
