@@ -101,7 +101,7 @@ const PROJECTS: Project[] = [
     name: 'Extended',
     url: 'https://app.extended.exchange/join/EXTENDED2026',
     twitter: 'https://x.com/extendedapp',
-    tier: 'A',
+    tier: 'S',
     description: 'Starknet DEX powered by ZK-Rollups. High performance and ultra-low fees for active traders.',
     investment: '$6.5M (cyber Fund, Semantic, StarkWare)',
     tags: ['Starknet', 'ZK-Rollup', 'StarkWare'],
