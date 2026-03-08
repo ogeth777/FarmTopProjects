@@ -32,6 +32,7 @@ interface Project {
   tier: 'S' | 'A' | 'B' | 'C';
   description: string;
   investment?: string;
+  investmentUrl?: string;
   otcPrice?: string;
   tags: string[];
   logo?: string;
@@ -46,6 +47,7 @@ const PROJECTS: Project[] = [
     tier: 'S',
     description: 'Omnichain perpetual DEX. Advanced risk management and deep cross-chain liquidity.',
     investment: '$11.8M (Dragonfly, Coinbase, Bain Capital)',
+    investmentUrl: 'https://cryptorank.io/ico/variational',
     otcPrice: 'Pre-market live',
     tags: ['Arbitrum', 'Dragonfly', 'Omnichain'],
     logo: '/logos/variational.jpg'
@@ -58,6 +60,7 @@ const PROJECTS: Project[] = [
     tier: 'S',
     description: 'CLOB DEX on Ink L2 (Kraken). High-performance central limit order book for professional traders.',
     investment: 'Ink L2 Ecosystem (Kraken)',
+    investmentUrl: 'https://inkonchain.com',
     tags: ['Ink L2', 'Kraken', 'CLOB'],
     logo: '/logos/nado.jpg'
   },
@@ -69,8 +72,21 @@ const PROJECTS: Project[] = [
     tier: 'S',
     description: 'Perp DEX aggregator. Unified interface for accessing liquidity from Hyperliquid, Lighter, and Ostium.',
     investment: '$7.6M (Paradigm, General Catalyst, Alpen Capital)',
+    investmentUrl: 'https://cryptorank.io/ico/liquid-markets',
     tags: ['Aggregator', 'Non-custodial', 'Unified UI'],
     logo: '/logos/liquid.jpg'
+  },
+  {
+    id: 'extended',
+    name: 'Extended',
+    url: 'https://app.extended.exchange/join/EXTENDED2026',
+    twitter: 'https://x.com/extendedapp',
+    tier: 'S',
+    description: 'Starknet DEX powered by ZK-Rollups. High performance and ultra-low fees for active traders.',
+    investment: '$6.5M (cyber Fund, Semantic, StarkWare)',
+    investmentUrl: 'https://cryptorank.io/ico/extended',
+    tags: ['Starknet', 'ZK-Rollup', 'StarkWare'],
+    logo: '/logos/extended.jpg'
   },
   {
     id: 'ostium',
@@ -80,6 +96,7 @@ const PROJECTS: Project[] = [
     tier: 'A',
     description: 'RWA Perpetual DEX on Arbitrum. Trade gold, oil, FX, and stocks with up to 200x leverage. Top-tier project in its niche.',
     investment: '$27.8M (Jump Crypto, General Catalyst, Coinbase Ventures)',
+    investmentUrl: 'https://cryptorank.io/ico/ostium-labs',
     otcPrice: '~$0.003 / point',
     tags: ['RWA', 'Arbitrum', 'Series A'],
     logo: '/logos/ostium.jpg'
@@ -92,20 +109,10 @@ const PROJECTS: Project[] = [
     tier: 'A',
     description: 'High-performance trading L2. Institutional-grade liquidity and the fastest order execution on the market.',
     investment: '$19M (Coinbase Ventures, Amber Group, Framework)',
+    investmentUrl: 'https://cryptorank.io/ico/reya-network',
     otcPrice: '$0.032 (Whales Market)',
     tags: ['L2', 'Ethereum', 'Amber Group'],
     logo: 'https://app.reya.xyz/favicon.ico'
-  },
-  {
-    id: 'extended',
-    name: 'Extended',
-    url: 'https://app.extended.exchange/join/EXTENDED2026',
-    twitter: 'https://x.com/extendedapp',
-    tier: 'S',
-    description: 'Starknet DEX powered by ZK-Rollups. High performance and ultra-low fees for active traders.',
-    investment: '$6.5M (cyber Fund, Semantic, StarkWare)',
-    tags: ['Starknet', 'ZK-Rollup', 'StarkWare'],
-    logo: '/logos/extended.jpg'
   },
   {
     id: 'hibachi',
@@ -115,6 +122,7 @@ const PROJECTS: Project[] = [
     tier: 'A',
     description: 'Global market on Hyperliquid L1 (HIP-3). Trade any asset 24/7 in a decentralized environment.',
     investment: '$5M (Dragonfly, Circle Ventures, Electric Capital)',
+    investmentUrl: 'https://cryptorank.io/ico/hibachi',
     tags: ['Hyperliquid', 'HIP-3', 'L1'],
     logo: '/logos/hibachi.jpg'
   },
@@ -126,6 +134,7 @@ const PROJECTS: Project[] = [
     tier: 'B',
     description: 'Next-gen trading platform on Base. Early access with social trading mechanics.',
     investment: '$15.2M (Pantera Capital, Coinbase Ventures, Wintermute)',
+    investmentUrl: 'https://cryptorank.io/ico/based-one',
     tags: ['Base', 'Early Access', 'Social'],
     logo: 'https://app.based.one/favicon.ico'
   },
@@ -137,6 +146,7 @@ const PROJECTS: Project[] = [
     tier: 'B',
     description: 'StarkEx-powered DEX. CEX-like speed with full blockchain security and transparency.',
     investment: '$4.2M (Coinbase Ventures, Alliance DAO)',
+    investmentUrl: 'https://cryptorank.io/ico/o1',
     tags: ['StarkEx', 'Amber Group', 'ZK-Proofs'],
     logo: 'https://o1.exchange/favicon.ico'
   },
@@ -281,9 +291,15 @@ const TierList = () => {
               >
                 {/* Investment Badge */}
                 {project.investment && (
-                  <div className="absolute -top-4 left-1/2 -translate-x-1/2 whitespace-nowrap px-2 py-0.5 bg-gray-900/95 backdrop-blur-sm border border-white/20 rounded-md text-[11px] font-black text-green-400 shadow-xl z-20 pointer-events-none tracking-wide">
+                  <a 
+                    href={project.investmentUrl || '#'} 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    className="absolute -top-4 left-1/2 -translate-x-1/2 whitespace-nowrap px-2 py-0.5 bg-gray-900/95 backdrop-blur-sm border border-white/20 rounded-md text-[11px] font-black text-green-400 shadow-xl z-20 hover:scale-105 hover:bg-gray-800 transition-all cursor-pointer tracking-wide"
+                    onClick={(e) => e.stopPropagation()}
+                  >
                     {project.investment.split('(')[0].trim()}
-                  </div>
+                  </a>
                 )}
 
                 <img 
