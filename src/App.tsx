@@ -378,7 +378,14 @@ const TierList = () => {
 };
 
 const App = () => {
-  const [lang, setLang] = useState<Language>('en');
+  const [lang, setLang] = useState<Language>(() => {
+    // Auto-detect language from browser settings (which usually match the country)
+    if (typeof window === 'undefined') return 'en';
+    const browserLang = navigator.language.toLowerCase();
+    if (browserLang.startsWith('de')) return 'de';
+    if (browserLang.startsWith('ko')) return 'ko';
+    return 'en';
+  });
   const t = TRANSLATIONS[lang];
 
   return (
