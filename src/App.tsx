@@ -277,6 +277,35 @@ const TIER_STYLES = {
   C: 'bg-[#FDCB6E] text-white',
 };
 
+const TRANSLATIONS = {
+  en: {
+    title: 'PERP DEX',
+    hub: 'HUB',
+    subtitle: 'Institutional Trading Access',
+    potential: 'Potential Profit: $5,000 - 10,000💎',
+    projects: 'Projects',
+    elite: 'Elite S',
+  },
+  de: {
+    title: 'PERP DEX',
+    hub: 'HUB',
+    subtitle: 'Institutioneller Handelszugang',
+    potential: 'Möglicher Gewinn: $5.000 - 10.000💎',
+    projects: 'Projekte',
+    elite: 'Elite S',
+  },
+  ko: {
+    title: 'PERP DEX',
+    hub: '허브',
+    subtitle: '기관급 거래 액세스',
+    potential: '예상 수익: $5,000 - 10,000💎',
+    projects: '프로젝트',
+    elite: '엘리트 S',
+  },
+};
+
+type Language = 'en' | 'de' | 'ko';
+
 const TierList = () => {
   const tiers = ['S', 'A', 'B', 'C'];
   const projectsByTier = tiers.map(tier => ({
@@ -349,6 +378,9 @@ const TierList = () => {
 };
 
 const App = () => {
+  const [lang, setLang] = useState<Language>('en');
+  const t = TRANSLATIONS[lang];
+
   return (
     <div className="min-h-screen relative overflow-hidden bg-[#050505] selection:bg-opinion-orange selection:text-white font-space">
       <FallingAirdrop />
@@ -360,8 +392,30 @@ const App = () => {
         <div className="absolute inset-0 bg-[linear-gradient(to_right,#ffffff05_1px,transparent_1px),linear-gradient(to_bottom,#ffffff05_1px,transparent_1px)] bg-[size:60px_60px] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_0%,#000_70%,transparent_100%)]" />
       </div>
 
-      <main className="max-w-7xl mx-auto px-6 py-8 sm:px-8 lg:px-12">
-        <div className="flex flex-col md:flex-row items-center justify-between mb-12 gap-8">
+      <main className="max-w-7xl mx-auto px-6 py-8 sm:px-8 lg:px-12 relative">
+        {/* Language Switcher */}
+        <div className="absolute top-0 right-6 sm:right-8 lg:right-12 z-50 flex gap-2">
+          {[
+            { code: 'en', label: '🇺🇸 EN' },
+            { code: 'de', label: '🇩🇪 DE' },
+            { code: 'ko', label: '🇰🇷 KO' }
+          ].map((l) => (
+            <button
+              key={l.code}
+              onClick={() => setLang(l.code as Language)}
+              className={cn(
+                "px-3 py-1.5 rounded-lg text-xs font-bold transition-all border",
+                lang === l.code 
+                  ? "bg-opinion-orange text-white border-opinion-orange shadow-[0_0_15px_rgba(255,95,31,0.4)]" 
+                  : "bg-white/5 text-white/40 border-white/10 hover:bg-white/10 hover:text-white"
+              )}
+            >
+              {l.label}
+            </button>
+          ))}
+        </div>
+
+        <div className="flex flex-col md:flex-row items-center justify-between mb-12 gap-8 mt-12">
           <motion.div
             initial={{ opacity: 0, x: -30 }}
             animate={{ opacity: 1, x: 0 }}
@@ -369,11 +423,11 @@ const App = () => {
             className="text-left space-y-2"
           >
             <h1 className="text-5xl sm:text-6xl lg:text-7xl font-black tracking-[-0.05em] leading-[0.85] text-white">
-              PERP <span className="text-gradient inline-block hover:skew-x-[-2deg] transition-transform duration-700 cursor-default">DEX</span><br/>
-              <span className="text-white/10 tracking-[0.05em] sm:tracking-[0.1em]">HUB</span>
+              {t.title} <span className="text-gradient inline-block hover:skew-x-[-2deg] transition-transform duration-700 cursor-default">DEX</span><br/>
+              <span className="text-white/10 tracking-[0.05em] sm:tracking-[0.1em]">{t.hub}</span>
             </h1>
             <p className="text-xs sm:text-sm font-black uppercase tracking-[0.4em] text-white/30">
-              Institutional Trading Access
+              {t.subtitle}
             </p>
           </motion.div>
 
@@ -381,13 +435,13 @@ const App = () => {
             <div className="flex items-center gap-2 px-4 py-2 bg-opinion-orange/10 rounded-full border border-opinion-orange/20 shadow-[0_0_20px_rgba(255,95,31,0.3)] animate-pulse">
               <Activity className="w-4 h-4 text-opinion-orange" />
               <span className="text-sm font-black text-opinion-orange tracking-widest uppercase">
-                Potential Profit: $5,000 - 10,000💎
+                {t.potential}
               </span>
             </div>
             <div className="flex items-center gap-3">
               {[
-                { label: 'Projects', value: PROJECTS.length, icon: Layers },
-                { label: 'Elite S', value: PROJECTS.filter(p => p.tier === 'S').length, icon: Trophy },
+                { label: t.projects, value: PROJECTS.length, icon: Layers },
+                { label: t.elite, value: PROJECTS.filter(p => p.tier === 'S').length, icon: Trophy },
               ].map((stat, i) => (
                 <div key={stat.label} className="bg-card-bg/40 backdrop-blur-xl border border-white/[0.03] rounded-2xl px-5 py-3 text-center">
                   <div className="text-lg font-black text-white">{stat.value}</div>
