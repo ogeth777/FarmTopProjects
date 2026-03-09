@@ -246,6 +246,30 @@ const FallingAirdrop = () => {
   );
 };
 
+const VCTicker = () => {
+  const vcs = [
+    'Paradigm', 'Coinbase Ventures', 'Dragonfly', 'Polychain', 'a16z', 
+    'Pantera', 'Multicoin', 'Binance Labs', 'Sequoia', 'Wintermute', 
+    'Framework', 'Jump Crypto', 'Delphi Digital', 'Spartan', 'Hashed'
+  ];
+
+  return (
+    <div className="w-full overflow-hidden bg-opinion-orange/5 border-y border-opinion-orange/10 py-2 mb-8">
+      <motion.div 
+        className="flex gap-8 items-center whitespace-nowrap"
+        animate={{ x: [0, -1000] }}
+        transition={{ repeat: Infinity, duration: 20, ease: "linear" }}
+      >
+        {[...vcs, ...vcs, ...vcs].map((vc, i) => (
+          <div key={i} className="flex items-center gap-2 text-white/40 font-bold uppercase tracking-wider text-xs md:text-sm">
+            <span className="text-opinion-orange">★</span> {vc}
+          </div>
+        ))}
+      </motion.div>
+    </div>
+  );
+};
+
 const TIER_STYLES = {
   S: 'bg-[#FF5F5F] text-white',
   A: 'bg-[#FF9F43] text-white',
@@ -374,7 +398,11 @@ const App = () => {
           </div>
         </div>
 
-        <div className="mt-12">
+        <div className="mt-8 mb-4">
+          <VCTicker />
+        </div>
+
+        <div className="mt-6">
           <TierList />
         </div>
 
