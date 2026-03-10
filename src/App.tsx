@@ -481,12 +481,12 @@ const App = () => {
                 <span className="absolute -bottom-1 left-0 w-0 h-[1px] bg-opinion-orange group-hover:w-full transition-all duration-500" />
               </a>
               <a 
-                href="https://x.com/Alex_devvv" 
+                href="https://x.com/OG_Cryptooo" 
                 target="_blank"
                 rel="noopener noreferrer"
                 className="group relative text-[11px] font-black uppercase tracking-[0.4em] text-white/30 hover:text-white transition-all duration-500"
               >
-                DEVELOPER: ALEX_DEVVV
+                DEVELOPER: OG_CRYPTOOO
                 <span className="absolute -bottom-1 left-0 w-0 h-[1px] bg-opinion-orange group-hover:w-full transition-all duration-500" />
               </a>
             </div>
