@@ -279,7 +279,7 @@ const TIER_STYLES = {
 
 const TRANSLATIONS = {
   en: {
-    title: 'PERP DEX',
+    title: 'PERP',
     hub: 'HUB',
     subtitle: 'Institutional Trading Access',
     potential: 'Potential Profit: $5,000 - 10,000💎',
@@ -287,7 +287,7 @@ const TRANSLATIONS = {
     elite: 'Elite S',
   },
   de: {
-    title: 'PERP DEX',
+    title: 'PERP',
     hub: 'HUB',
     subtitle: 'Institutioneller Handelszugang',
     potential: 'Möglicher Gewinn: $5.000 - 10.000💎',
@@ -295,7 +295,7 @@ const TRANSLATIONS = {
     elite: 'Elite S',
   },
   ko: {
-    title: 'PERP DEX',
+    title: 'PERP',
     hub: '허브',
     subtitle: '기관급 거래 액세스',
     potential: '예상 수익: $5,000 - 10,000💎',
