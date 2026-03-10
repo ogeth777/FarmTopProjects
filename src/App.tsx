@@ -469,14 +469,24 @@ const App = () => {
 
         <footer className="mt-32 pb-16 border-t border-white/[0.05] pt-16">
           <div className="flex flex-col items-center gap-12">
-            <div className="flex justify-center items-center">
+            <div className="flex flex-col sm:flex-row justify-center items-center gap-6 sm:gap-12">
+              <a 
+                href="https://x.com/OG_Cryptooo" 
+                target="_blank"
+                rel="noopener noreferrer"
+                className="group relative text-[11px] font-black uppercase tracking-[0.4em] text-white/30 hover:text-white transition-all duration-500 flex items-center gap-2"
+              >
+                <Twitter className="w-3 h-3 text-opinion-orange" />
+                CREATOR: OG_CRYPTOOO
+                <span className="absolute -bottom-1 left-0 w-0 h-[1px] bg-opinion-orange group-hover:w-full transition-all duration-500" />
+              </a>
               <a 
                 href="https://x.com/Alex_devvv" 
                 target="_blank"
                 rel="noopener noreferrer"
                 className="group relative text-[11px] font-black uppercase tracking-[0.4em] text-white/30 hover:text-white transition-all duration-500"
               >
-                Twitter
+                DEVELOPER: ALEX_DEVVV
                 <span className="absolute -bottom-1 left-0 w-0 h-[1px] bg-opinion-orange group-hover:w-full transition-all duration-500" />
               </a>
             </div>
