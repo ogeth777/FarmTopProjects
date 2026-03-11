@@ -270,34 +270,6 @@ const VCTicker = () => {
   );
 };
 
-const VisitorStats = () => {
-  const [location, setLocation] = useState<{ city: string; country: string; flag: string } | null>(null);
-
-  useEffect(() => {
-    fetch('https://ipapi.co/json/')
-      .then(res => res.json())
-      .then(data => {
-        if (data.city && data.country_name) {
-          setLocation({
-            city: data.city,
-            country: data.country_name,
-            flag: data.country_code // This is just the code, we can use emoji flag logic if needed or just display code
-          });
-        }
-      })
-      .catch(err => console.error('Failed to fetch location', err));
-  }, []);
-
-  if (!location) return null;
-
-  return (
-    <div className="fixed bottom-4 right-4 z-50 flex items-center gap-2 px-3 py-1.5 bg-black/80 backdrop-blur-md border border-opinion-orange/20 rounded-full text-[10px] font-mono text-opinion-orange/80 shadow-[0_0_15px_rgba(255,95,31,0.15)] animate-pulse">
-      <div className="w-1.5 h-1.5 bg-opinion-orange rounded-full animate-ping" />
-      <span>DETECTED: {location.city.toUpperCase()}, {location.country.toUpperCase()}</span>
-    </div>
-  );
-};
-
 const TIER_STYLES = {
   S: 'bg-[#FF5F5F] text-white',
   A: 'bg-[#FF9F43] text-white',
@@ -419,7 +391,6 @@ const App = () => {
   return (
     <div className="min-h-screen relative overflow-hidden bg-[#050505] selection:bg-opinion-orange selection:text-white font-space">
       <FallingAirdrop />
-      <VisitorStats />
       
       <div className="absolute top-0 left-0 w-full h-full -z-10">
         <div className="absolute top-[-10%] left-[-10%] w-[50%] h-[50%] bg-opinion-orange/15 blur-[180px] rounded-full opacity-40 animate-pulse" />
